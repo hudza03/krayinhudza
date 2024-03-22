@@ -4,6 +4,7 @@ namespace Webkul\Attribute\Repositories;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Webkul\Core\Eloquent\Repository;
 
 class AttributeValueRepository extends Repository
@@ -64,7 +65,8 @@ class AttributeValueRepository extends Repository
                 $data[$attribute->code] = isset($data[$attribute->code]) && $data[$attribute->code] ? 1 : 0;
             }
 
-            if (! isset($data[$attribute->code])) {
+            // Allowing null values
+            if (! Arr::exists($data, $attribute->code)) {
                 continue;
             }
 
